@@ -1,5 +1,7 @@
 using CleanArch.Domain.Interfaces;
+using CleanArch.Infrastructure.Context;
 using CleanArch.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddScoped<IUnityOfWork,UnityOfWork>();
 builder.Services.AddScoped<IPedidoRepository,PedidoRepository>();
 builder.Services.AddScoped<IProdutoRepository,ProdutoRepository>();
 builder.Services.AddScoped<IClienteRepository,ClienteRepository>();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

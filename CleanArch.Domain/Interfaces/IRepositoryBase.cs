@@ -12,7 +12,7 @@ namespace CleanArch.Domain.Interfaces
         Task<IEnumerable<T>> GetAllAsync();
 
         Task<T> InsertAsync(T entity);
-        Task UpdateAsync(T entity);
+        void Update(T entity);
         Task DeleteAsync(int id);
        
     }

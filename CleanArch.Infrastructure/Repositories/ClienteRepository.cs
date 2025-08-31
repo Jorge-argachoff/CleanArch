@@ -1,9 +1,11 @@
 ﻿using CleanArch.Domain.Entities;
 using CleanArch.Domain.Interfaces;
 using CleanArch.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,34 +13,41 @@ namespace CleanArch.Infrastructure.Repositories
 {
     public class ClienteRepository : IClienteRepository
     {
-        AppDbContext _appDbContext;
+        AppDbContext _context;
         public ClienteRepository(AppDbContext context)
         {
-                _appDbContext = context;
+            _context = context;
         }
         public Task DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Cliente>> GetAllAsync()
+        public async Task<IEnumerable<Cliente>> GetAllAsync()
         {
-            throw new NotImplementedException();
+           return await _context.Clientes.ToListAsync();
         }
 
-        public Task<Cliente> GetByIdAsync(int id)
+        public async Task<Cliente> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+           var cliente =  await _context.Clientes.FindAsync(id);
+
+            if (cliente == null)
+                throw new InvalidCastException("Cliente não encontrado");
+
+            return cliente;
         }
 
-        public Task<Cliente> InsertAsync(Cliente entity)
+        public async Task<Cliente> InsertAsync(Cliente entity)
         {
-            throw new NotImplementedException();
+             await _context.Clientes.AddAsync(entity);
+
+            return entity;
         }
 
-        public Task UpdateAsync(Cliente entity)
+        public  void Update(Cliente entity)
         {
-            throw new NotImplementedException();
+             _context.Clientes.Update(entity);   
         }
     }
 }

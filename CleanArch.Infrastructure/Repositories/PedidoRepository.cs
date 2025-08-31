@@ -36,7 +36,7 @@ namespace CleanArch.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(Pedido entity)
+        public void Update(Pedido entity)
         {
             throw new NotImplementedException();
         }
