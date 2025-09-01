@@ -17,6 +17,8 @@ namespace CleanArch.Domain.Entities
         public string Nome { get; private set; }
         public decimal Preco { get; private set; }
 
+        public ICollection<ItemPedido> ItensPedido { get; set; }
+
         private void Validar(int codigoBarras, string nome, decimal preco)
         {
             if (codigoBarras <= 0) throw new ArgumentException(nameof(codigoBarras));

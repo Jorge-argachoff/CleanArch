@@ -12,9 +12,15 @@ namespace CleanArch.Domain.Entities
         {
             Validar(nome, cpf);
         }
+        public Cliente()
+        {
+           
+        }
         public string Nome { get; private set; }
 
         public string CPF { get; private set; }
+
+        public ICollection<Pedido> Pedidos { get; set; }
 
         private void Validar(string nome, string cpf)
         {

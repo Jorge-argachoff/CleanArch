@@ -6,6 +6,10 @@ namespace CleanArch.API.Controllers
     [Route("api/[controller]")]
     public class ClienteController : ControllerBase
     {
+        public ClienteController()
+        {
+                
+        }
         [HttpGet]
         public async Task<IActionResult> Get()
         {

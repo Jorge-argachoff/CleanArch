@@ -14,6 +14,7 @@ namespace CleanArch.Infrastructure.Context
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<ItemPedido> ItensPedido { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -24,6 +25,7 @@ namespace CleanArch.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new PedidoConfiguration());
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new ClienteConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemPedidoConfiguration());
         }
     }
 }

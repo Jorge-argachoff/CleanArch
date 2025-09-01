@@ -16,6 +16,11 @@ namespace CleanArch.Domain.Entities
         public int Numero { get; private set; }
         public DateTime DataPedido { get; private set; }
 
+        public Cliente Cliente { get; set; } // Propriedade de navegação para Cliente
+        public ICollection<ItemPedido> ItensPedido { get; set; }
+        public int PedidoId { get; set; }
+        public int ClienteId { get; set; }
+
         private void Validar(int numero)
         {
             if (numero <= 0) throw new ArgumentException(nameof(numero));

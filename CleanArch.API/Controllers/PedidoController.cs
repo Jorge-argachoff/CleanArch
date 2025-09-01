@@ -6,6 +6,7 @@ namespace CleanArch.API.Controllers
     [Route("api/[controller]")]
     public class PedidoController : Controller
     {
+        
         [HttpGet]
         public async Task<IActionResult> Get()
         {

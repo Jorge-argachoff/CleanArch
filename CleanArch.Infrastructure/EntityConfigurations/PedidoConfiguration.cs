@@ -14,7 +14,10 @@ namespace CleanArch.Infrastructure.EntityConfigurations
         public void Configure(EntityTypeBuilder<Pedido> entity)
         {
             entity.HasKey(x=>x.Id);
-            
+            entity.HasOne(p => p.Cliente)
+            .WithMany(c => c.Pedidos)
+            .HasForeignKey(p => p.ClienteId);
+
         }
     }
 }
