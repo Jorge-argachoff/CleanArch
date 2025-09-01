@@ -18,9 +18,13 @@ namespace CleanArch.Infrastructure.Repositories
         {
             _context = context;
         }
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var productToDelete = await _context.Clientes.FindAsync(id);
+            if (productToDelete != null)
+            {
+                _context.Clientes.Remove(productToDelete);              
+            }
         }
 
         public async Task<IEnumerable<Cliente>> GetAllAsync()

@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CleanArch.Domain.Entities
 {
-    public sealed class Pedido : EntityBase
+    public class Pedido : EntityBase
     {
         public Pedido(int numero)
         {

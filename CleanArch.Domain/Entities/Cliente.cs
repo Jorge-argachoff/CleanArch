@@ -25,7 +25,7 @@ namespace CleanArch.Domain.Entities
         private void Validar(string nome, string cpf)
         {
             if (string.IsNullOrEmpty(nome)) throw new ArgumentNullException(nameof(nome));
-            if (string.IsNullOrEmpty(CPF)) throw new ArgumentNullException(nameof(cpf));
+            if (string.IsNullOrEmpty(cpf)) throw new ArgumentNullException(nameof(cpf));
 
             Nome = nome;
             CPF = cpf;

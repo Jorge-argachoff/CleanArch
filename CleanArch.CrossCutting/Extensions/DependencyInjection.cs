@@ -27,7 +27,8 @@ namespace CleanArch.CrossCutting.Extensions
             services.AddDbContext<AppDbContext>(options =>
                     options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            var handlers = AppDomain.CurrentDomain.Load("CleanArch.Application");
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(handlers));
 
 
             return services;
