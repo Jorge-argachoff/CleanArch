@@ -10,26 +10,26 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Clientes.Commands
 {
-    public class CreateClienteCommandHandler : IRequestHandler<CreateClienteCommand, Cliente>
+    public class UpdateClienteCommandHandler : IRequestHandler<UpdateClienteCommand, Cliente>
     {
         private readonly IUnityOfWork _unityOfWork;
-        private readonly IValidator<CreateClienteCommand> _validator;
+        private readonly IValidator<UpdateClienteCommand> _validator;
 
-        public CreateClienteCommandHandler(IUnityOfWork unityOfWork, IValidator<CreateClienteCommand> validator = null)
+        public UpdateClienteCommandHandler(IUnityOfWork unityOfWork, IValidator<UpdateClienteCommand> validator = null)
         {
             _unityOfWork = unityOfWork;
             _validator = validator;
         }
 
-        public async  Task<Cliente> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
+        public async  Task<Cliente> Handle(UpdateClienteCommand request, CancellationToken cancellationToken)
         {
              _validator.ValidateAndThrow(request);
 
             var cliente =  new Cliente(request.Nome,request.CPF);
-            
-            await _unityOfWork.Clientes.InsertAsync(cliente);
-            await _unityOfWork.SaveAsync();
-            
+            cliente.Id = request.Id;
+
+             _unityOfWork.Clientes.Update(cliente);
+            await _unityOfWork.SaveAsync();            
             
             return cliente;
         }

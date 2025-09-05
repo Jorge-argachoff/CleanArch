@@ -49,7 +49,7 @@ namespace CleanArch.Infrastructure.Repositories
             return entity;
         }
 
-        public  void Update(Cliente entity)
+        public void Update(Cliente entity)
         {
              _context.Clientes.Update(entity);   
         }

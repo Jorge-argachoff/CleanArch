@@ -42,8 +42,9 @@ namespace CleanArch.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] string json)
+        public async Task<IActionResult> Put([FromBody] UpdateClienteCommand command)
         {
+            await _mediator.Send(command);
 
             return Ok();
         }

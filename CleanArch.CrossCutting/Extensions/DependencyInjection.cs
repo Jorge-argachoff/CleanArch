@@ -1,16 +1,11 @@
 ﻿using CleanArch.Domain.Interfaces;
 using CleanArch.Infrastructure.Context;
 using CleanArch.Infrastructure.Repositories;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArch.CrossCutting.Extensions
 {
@@ -30,6 +25,7 @@ namespace CleanArch.CrossCutting.Extensions
             var handlers = AppDomain.CurrentDomain.Load("CleanArch.Application");
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(handlers));
 
+            services.AddValidatorsFromAssembly(Assembly.Load("CleanArch.Application"));
 
             return services;
         }

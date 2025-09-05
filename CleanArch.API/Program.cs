@@ -1,3 +1,4 @@
+using CleanArch.API.Filters;
 using CleanArch.CrossCutting.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfraStructure(builder.Configuration);
+
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(new CustomExceptionFilter());
+});
 
 var app = builder.Build();
 
