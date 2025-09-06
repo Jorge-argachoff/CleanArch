@@ -1,1 +1,2 @@
-Aplicando CQRS, Unity of Work, Repository pattern
+Aplicando CQRS, Mediator, Unity of Work, Repository pattern
+
