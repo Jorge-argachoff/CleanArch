@@ -5,6 +5,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 using System.Reflection;
 
 namespace CleanArch.CrossCutting.Extensions
@@ -19,12 +20,17 @@ namespace CleanArch.CrossCutting.Extensions
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
 
+            services.AddScoped<ICacheService, RedisCacheService>();
+
             services.AddDbContext<AppDbContext>(options =>
                     options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             var handlers = AppDomain.CurrentDomain.Load("CleanArch.Application");
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(handlers));
 
+            services.AddSingleton<IConnectionMultiplexer>(sp =>
+    ConnectionMultiplexer.Connect("localhost")); // ou use a string de conexão do Redis
+                       
             services.AddValidatorsFromAssembly(Assembly.Load("CleanArch.Application"));
 
             return services;

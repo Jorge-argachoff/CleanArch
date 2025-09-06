@@ -2,6 +2,7 @@
 using CleanArch.Application.Clientes.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace CleanArch.API.Controllers
 {
@@ -20,17 +21,38 @@ namespace CleanArch.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             var clientes = await _mediator.Send(new GetClientesQuery());
 
-            return Ok(clientes);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+
+            var result = new
+            {
+                Tempo = string.Format("{0:00}:{1:00}:{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds),
+                Cliente = clientes
+            };
+            return Ok(result);
+           
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             var cliente = await _mediator.Send(new GetClienteByIdQuery() { Id = id });
 
-            return Ok(cliente);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+
+            var result = new
+            {
+                Tempo = string.Format("{0:00}:{1:00}:{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds),
+                Cliente = cliente
+            };
+            return Ok(result);
         }
 
         [HttpPost]
@@ -56,5 +78,7 @@ namespace CleanArch.API.Controllers
 
             return Ok();
         }
+
+       
     }
 }
